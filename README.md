@@ -2,7 +2,7 @@
 Ejemplo de aplicación de una tienda con una arquitectura de microservicios empleando spring-boot y spring-cloud.
 
 ### api-gateway
-Microservicio de API Gateway.
+Microservicio de API Gateway (Spring Cloud API Gateway, Load Balanced).
 
 Endpoints de inventory-service:
 * GET http://localhost:8080/api/inventory/{sku}
@@ -40,6 +40,11 @@ Endpoints de products-service:
           "status": true
       }
 
+
+### discovery-server
+Microservicio de registro y búsqueda de microservicios (Spring Cloud Eureka Server) donde registramos los microservicios de api-gateway, inventory-service, orders-service y products-service.
+
+Url de la consola de administración: http://localhost:8761
 
 ### inventory-service
 Microservicio de inventario (inventory).
