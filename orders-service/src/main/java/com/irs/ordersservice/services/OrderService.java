@@ -26,7 +26,8 @@ public class OrderService {
         BaseResponse result = this.webClientBuilder.build()
                 .post()
                 //.uri("http://localhost:8083/api/inventory/in-stock")
-                .uri("http://localhost:8080/api/inventory/in-stock")// Api gateway
+                //.uri("http://localhost:8080/api/inventory/in-stock") // Api gateway
+                .uri("lb://inventory-service/api/inventory/in-stock") // Eureka
                 .bodyValue(orderRequest.getOrderItems())
                 .retrieve()
                 .bodyToMono(BaseResponse.class)
