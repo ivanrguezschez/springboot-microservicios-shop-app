@@ -113,3 +113,8 @@ Datos para obtener un token a través de Oauth2 (previanmente se debe acceder a 
   - grant_type: password
   - username: admin_user o basic_user
   - password: Test123
+
+### Actuator - Resilience4j - Cirtuit Breaker
+Añadimos actuator a los tres microservicios (inventario, ordenes y productos) para tener métricas de salud de los microservicios y ver el funcionamiento del circuit breaker en el microservicio de ordenes en su llamadas al microservicio de inventario.
+
+Empleando la librería resilience4j añadimos el cirtuit break en el microservicio de ordenes para las llamadas al microservicio de inventario que se hace dentro de ordenes.

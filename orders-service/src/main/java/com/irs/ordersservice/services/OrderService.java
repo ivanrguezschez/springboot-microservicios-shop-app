@@ -21,7 +21,8 @@ public class OrderService {
 
     private final WebClient.Builder webClientBuilder;
 
-    public void placeOrder(OrderRequest orderRequest) {
+    //public void placeOrder(OrderRequest orderRequest) {
+    public OrderResponse placeOrder(OrderRequest orderRequest) {
         // Check for inventory (comprobamos que hay productos en stock)
         BaseResponse result = this.webClientBuilder.build()
                 .post()
@@ -39,7 +40,9 @@ public class OrderService {
                     .map(orderItemRequest -> mapOrderItemRequestToOrderItem(orderItemRequest, order))
                     .toList());
 
-            orderRepository.save(order);
+            //this.orderRepository.save(order);
+            Order savedOrder = this.orderRepository.save(order);
+            return mapToOrderResponse(savedOrder);
         } else {
             throw new IllegalArgumentException("Some of the products are not in stock");
         }
