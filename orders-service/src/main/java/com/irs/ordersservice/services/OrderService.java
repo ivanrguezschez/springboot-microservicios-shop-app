@@ -1,11 +1,15 @@
 package com.irs.ordersservice.services;
 
+import com.irs.ordersservice.events.OrderEvent;
 import com.irs.ordersservice.model.dtos.*;
 import com.irs.ordersservice.model.entities.Order;
 import com.irs.ordersservice.model.entities.OrderItems;
+import com.irs.ordersservice.model.enums.OrderStatus;
 import com.irs.ordersservice.repositories.OrderRepository;
+import com.irs.ordersservice.utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -20,6 +24,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final WebClient.Builder webClientBuilder;
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     //public void placeOrder(OrderRequest orderRequest) {
     public OrderResponse placeOrder(OrderRequest orderRequest) {
@@ -42,6 +48,12 @@ public class OrderService {
 
             //this.orderRepository.save(order);
             Order savedOrder = this.orderRepository.save(order);
+
+            // Send message to order topic
+            this.kafkaTemplate.send("orders-topic", JsonUtils.toJson(
+                    new OrderEvent(savedOrder.getOrderNumber(), savedOrder.getOrderItems().size(), OrderStatus.PLACED)
+            ));
+
             return mapToOrderResponse(savedOrder);
         } else {
             throw new IllegalArgumentException("Some of the products are not in stock");

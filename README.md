@@ -42,7 +42,7 @@ Endpoints de products-service:
 
 
 ### discovery-server
-Microservicio de registro y búsqueda de microservicios (Spring Cloud Eureka Server) donde registramos los microservicios de api-gateway, inventory-service, orders-service y products-service.
+Microservicio de registro y búsqueda de microservicios (Spring Cloud Eureka Server) donde registramos los microservicios de api-gateway, inventory-service, orders-service, products-service y notification-service.
 
 Url de la consola de administración: http://localhost:8761
 
@@ -118,3 +118,8 @@ Datos para obtener un token a través de Oauth2 (previanmente se debe acceder a 
 Añadimos actuator a los tres microservicios (inventario, ordenes y productos) para tener métricas de salud de los microservicios y ver el funcionamiento del circuit breaker en el microservicio de ordenes en su llamadas al microservicio de inventario.
 
 Empleando la librería resilience4j añadimos el cirtuit break en el microservicio de ordenes para las llamadas al microservicio de inventario que se hace dentro de ordenes.
+
+### notification-service (kafka)
+Microservicio de notificaciones (notification). 
+
+Microservicio consumidor que consume los mensajes enviados al topic "orders-topic" por parte del microservicio productor Order Service para notificar la realización de un pedido. 
