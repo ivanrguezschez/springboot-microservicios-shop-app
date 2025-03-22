@@ -1,6 +1,9 @@
 # springboot-microservicios-shop-app
 Ejemplo de aplicación de una tienda con una arquitectura de microservicios empleando spring-boot y spring-cloud.
 
+Diagrama de la aplicación:
+![image](diagrama-microservicios-shop-app.png)
+
 ### api-gateway
 Microservicio de API Gateway (Spring Cloud API Gateway, Load Balanced).
 
@@ -124,6 +127,8 @@ Microservicio de notificaciones (notification).
 
 Microservicio consumidor que consume los mensajes enviados al topic "orders-topic" por parte del microservicio productor Order Service para notificar la realización de un pedido. 
 
+Diagrama Kafka de la aplicación:
+![image](diagrama-microservicios-shop-app-kafka.png)
 
 ### Rastreo y Monitoreo (Zipkin, Prometheus, Grafana)
 #### Zipkin
