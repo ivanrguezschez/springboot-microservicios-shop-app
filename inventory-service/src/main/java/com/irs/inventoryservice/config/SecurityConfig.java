@@ -27,10 +27,13 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 //.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .securityMatcher("/**").authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .oauth2ResourceServer(oauth -> {
-                    oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter()));
-                });
+                //.securityMatcher("/**").authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(request ->
+                                    request.getRequestURI().contains("/actuator/inventory")).permitAll()
+                                .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter())));
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();

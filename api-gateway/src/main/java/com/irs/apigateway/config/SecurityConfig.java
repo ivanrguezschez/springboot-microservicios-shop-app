@@ -14,7 +14,11 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) throws Exception {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange(exchanges -> exchanges.anyExchange().authenticated())
+                //.authorizeExchange(exchanges -> exchanges.anyExchange().authenticated())
+                .authorizeExchange(exchanges -> {
+                    exchanges.pathMatchers("/actuator/**").permitAll();
+                    exchanges.anyExchange().authenticated();
+                })
                 .oauth2Login(Customizer.withDefaults());
 
         return http.build();

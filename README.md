@@ -123,3 +123,32 @@ Empleando la librería resilience4j añadimos el cirtuit break en el microservic
 Microservicio de notificaciones (notification). 
 
 Microservicio consumidor que consume los mensajes enviados al topic "orders-topic" por parte del microservicio productor Order Service para notificar la realización de un pedido. 
+
+
+### Rastreo y Monitoreo (Zipkin, Prometheus, Grafana)
+#### Zipkin
+Herramienta de tracing distribuido diseñada para ayudar a los desarrolladores a rastrear y solucionar problemas en sistemas de microservicios y arquitectura distribuidas.
+
+La principal función es proporcionar visibilidad sobre cómo las solicitudes se propagan a través de diferentes servicios en un aplicación distribuida.
+
+Url: http://localhost:9411
+
+#### Prometheus
+Sistema de monitoreo y alerta de código abierto que se utiliza para recolpilar, almacenar, consultar y visualizar métricas y datos de rendimiento de sistemas y aplicaciones.
+
+Se encarga de recopilar métricas de sistemas y aplicaciones a intervalos regulares, estas métricas son almacenadas en una base de datos de series temporales.
+
+Url: http://localhost:9090
+
+#### Grafana
+Plataforma utilizada para la visualización y el análisis de datos.
+
+Se utiliza para crear paneles interactivos y gráficos que representan datos de métricas y registros, lo que permite a los usuarios monitorear y analizar el rendimiento y la salud de sistemas, aplicaciones y servicios.
+
+Podemos conectarnos a una variedad de fuente de datos incluyendo base de datos relacionales, base de datos de series temporales (prometheus), servicios en la nube, etc, esto permite integrar datos de diversas fuentes en un único panel.
+
+Url: http://localhost:3000
+
+Al crear una fuente de datos (data sources) de Prometheus establecemos como "Prometheus server URL" el valor "http://host.docker.internal:9090".
+
+Los dashboards a añadir los añadimos del catálogo de la página de grafana.
